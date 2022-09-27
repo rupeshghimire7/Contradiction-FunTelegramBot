@@ -102,9 +102,19 @@ def roastme(update, context):
 def meme(update, context):
     response = requests.get('https://meme-api.herokuapp.com/gimme').json()
     url = response.get('url')
-    print(url)
     update.message.reply_photo(url)
 
+
+
+def trivia(update, context):
+    
+    buttons = 
+
+    response = requests.get('https://the-trivia-api.com/api/questions').json()
+    # print(response)
+    for element in response:
+        print(element)
+    update.message.reply_text("Testing")
 
 
 updater = tele.Updater(TOKEN, use_context=True)
@@ -117,7 +127,7 @@ disp.add_handler(tele.CommandHandler("roastme", roastme))
 disp.add_handler(tele.CommandHandler("flirt", flirt))
 disp.add_handler(tele.CommandHandler("help", help))
 # disp.add_handler(tele.MessageHandler(tele.Filters.text, gamble))
-# disp.add_handler(tele.CommandHandler("trivia", trivia))
+disp.add_handler(tele.CommandHandler("trivia", trivia))
 disp.add_handler(tele.CommandHandler("meme", meme))
 
 
