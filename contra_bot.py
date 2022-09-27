@@ -1,6 +1,8 @@
 import telegram.ext as tele
 #import Responses as resp
 from random import randrange
+import requests
+
 
 # with open('token.txt', 'r') as f:
 #     TOKEN = f.read()
@@ -89,12 +91,20 @@ def roastme(update, context):
     update.message.reply_text(roast_line)
 
 
-def gamble(update, context):
-    # if update.message == "photo" or "sticker":
-    update.message.reply_text("dice")
-    print(update.message)
-    # pic = 
-    # update.message.reply_sticker()
+# def gamble(update, context):
+#     # if update.message == "photo" or "sticker":
+#     update.message.reply_text("dice")
+#     print(update.message)
+#     # pic = 
+#     # update.message.reply_sticker()
+
+
+def meme(update, context):
+    response = requests.get('https://meme-api.herokuapp.com/gimme').json()
+    url = response.get('url')
+    print(url)
+    update.message.reply_photo(url)
+
 
 
 updater = tele.Updater(TOKEN, use_context=True)
@@ -106,9 +116,9 @@ disp.add_handler(tele.CommandHandler("start", start))
 disp.add_handler(tele.CommandHandler("roastme", roastme))
 disp.add_handler(tele.CommandHandler("flirt", flirt))
 disp.add_handler(tele.CommandHandler("help", help))
-disp.add_handler(tele.MessageHandler(tele.Filters.text, gamble))
+# disp.add_handler(tele.MessageHandler(tele.Filters.text, gamble))
 # disp.add_handler(tele.CommandHandler("trivia", trivia))
-# disp.add_handler(tele.CommandHandler("meme", meme))
+disp.add_handler(tele.CommandHandler("meme", meme))
 
 
 updater.start_polling()
