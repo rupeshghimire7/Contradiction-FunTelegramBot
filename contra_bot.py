@@ -10,16 +10,18 @@ TOKEN = "5739362149:AAGj26fJRtNlT5Ul8Q5Do28tbrUExt7b8oQ"
 def start(update,context):
     first_name = update.message.from_user["first_name"]
     update.message.reply_text('''
-   /start
    /help
    /roastme
    /flirt
    /meme
    /trivia
     ''')
+    print(update.message)
+
 
 def help(update, context):
     update.message.reply_text("Contact @rupesh_ghimire for any suggestions or help. Thank you for your time.")
+
 
 
 def flirt(update, context):
@@ -57,6 +59,7 @@ def flirt(update, context):
     pickup_line = lines[randrange(0,30)]
     update.message.reply_text(pickup_line)
  
+ 
 
 def roastme(update, context):
     lines = ''' My hair straightener is hotter than you.
@@ -85,16 +88,27 @@ def roastme(update, context):
     roast_line = lines[randrange(0,22)]
     update.message.reply_text(roast_line)
 
+
+def gamble(update, context):
+    # if update.message == "photo" or "sticker":
+    update.message.reply_text("dice")
+    print(update.message)
+    # pic = 
+    # update.message.reply_sticker()
+
+
 updater = tele.Updater(TOKEN, use_context=True)
 disp = updater.dispatcher
+
 
 #Handlers Here
 disp.add_handler(tele.CommandHandler("start", start))
 disp.add_handler(tele.CommandHandler("roastme", roastme))
 disp.add_handler(tele.CommandHandler("flirt", flirt))
 disp.add_handler(tele.CommandHandler("help", help))
+disp.add_handler(tele.MessageHandler(tele.Filters.text, gamble))
 # disp.add_handler(tele.CommandHandler("trivia", trivia))
-disp.add_handler(tele.CommandHandler("meme", meme))
+# disp.add_handler(tele.CommandHandler("meme", meme))
 
 
 updater.start_polling()
