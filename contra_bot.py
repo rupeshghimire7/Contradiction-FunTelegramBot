@@ -1,4 +1,5 @@
 import telegram.ext as tele
+import time
 from telegram import *
 #import Responses as resp
 import random
@@ -108,7 +109,7 @@ def meme(update, context):
 
 
 def trivia(update, context):
-    points = 0
+    details = []
     response = requests.get('https://the-trivia-api.com/api/questions').json()
     # print(response)
     for element in response:
@@ -124,21 +125,39 @@ def trivia(update, context):
             print(wrong)
             options.append(wrong)
         options.append(right)
+        options.append(question)
         print(options)
+
 
         buttons = [[KeyboardButton(options.pop(options.index(random.choice(options))))],
         [KeyboardButton(options.pop(options.index(random.choice(options))))],
         [KeyboardButton(options.pop(options.index(random.choice(options))))],
         [KeyboardButton(options.pop(options.index(random.choice(options))))]]  
 
-        if update.message.text == right:
-            points = points + 1
-            print(points)
-            update.message.reply_text("Your total point is: "+ points)
-        print(points)
+        context.bot.send_message(chat_id=update.effective_chat.id, text = question, reply_markup=ReplyKeyboardMarkup(buttons)) 
+        details.append(options)
+    return details
 
-        context.bot.send_message(chat_id=update.effective_chat.id, text = question, reply_markup=ReplyKeyboardMarkup(buttons))    
-    update.message.reply_text("Testing")
+
+def triviahandler(update, context):
+    # points = 0
+    pass
+    # for options in details:
+    #     question = options.pop()
+    #     print(question)
+    #     right = options[-1]
+    #     print(right)
+    #     wrongs = options[:-1]
+    #     print(wrongs)
+    #     print(options)
+    #     random.shuffle(options)
+
+
+    #     if update.message.text == right:
+    #         points = points + 1
+    #         print(points)
+    #     update.message.reply_text("Your total point is: "+ points)
+    #     print(points)
 
 
 updater = tele.Updater(TOKEN, use_context=True)
@@ -151,7 +170,8 @@ disp.add_handler(tele.CommandHandler("roastme", roastme))
 disp.add_handler(tele.CommandHandler("flirt", flirt))
 disp.add_handler(tele.CommandHandler("help", help))
 # disp.add_handler(tele.MessageHandler(tele.Filters.text, gamble))
-disp.add_handler(tele.CommandHandler("trivia", trivia))
+disp.add_handler(tele.CommandHandler('trivia', trivia))
+disp.add_handler(tele.MessageHandler(tele.Filters.text, triviahandler))
 disp.add_handler(tele.CommandHandler("meme", meme))
 
 
