@@ -1,6 +1,7 @@
 import telegram.ext as tele
+from telegram import *
 #import Responses as resp
-from random import randrange
+import random
 import requests
 
 
@@ -107,13 +108,36 @@ def meme(update, context):
 
 
 def trivia(update, context):
-    
-    buttons = 
-
+    points = 0
     response = requests.get('https://the-trivia-api.com/api/questions').json()
     # print(response)
     for element in response:
-        print(element)
+        question = element.get('question')
+        print(question)
+        right = element.get('correctAnswer')
+        print(right)
+        wrongs = element.get('incorrectAnswers')
+        print(wrongs)
+        options = []
+        print(options)
+        for wrong in wrongs:
+            print(wrong)
+            options.append(wrong)
+        options.append(right)
+        print(options)
+
+        buttons = [[KeyboardButton(options.pop(options.index(random.choice(options))))],
+        [KeyboardButton(options.pop(options.index(random.choice(options))))],
+        [KeyboardButton(options.pop(options.index(random.choice(options))))],
+        [KeyboardButton(options.pop(options.index(random.choice(options))))]]  
+
+        if update.message.text == right:
+            points = points + 1
+            print(points)
+            update.message.reply_text("Your total point is: "+ points)
+        print(points)
+
+        context.bot.send_message(chat_id=update.effective_chat.id, text = question, reply_markup=ReplyKeyboardMarkup(buttons))    
     update.message.reply_text("Testing")
 
 

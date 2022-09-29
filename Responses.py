@@ -1,15 +1,15 @@
-from random import randrange
-s = """hey how are you
-hi hey up
-hello suuuu
-yo yellow
-sup noice baby"""
+def poppin(list1):
+    return list1.pop()
 
 
-ls = []
-s = s.split('\n')
-print(s)
+def something():
+    list1 = ['a','b','c','d']
+    for i in list1:
+        print(len(list1))
+        print(list1)
+        x = list1.pop()
+        # x = poppin(list1)
+        print(x)      
+    print(list1)
 
-
-l = s[randrange(0,5)]
-print(l)
+something()
