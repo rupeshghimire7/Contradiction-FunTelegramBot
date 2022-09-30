@@ -5,7 +5,7 @@ import random
 
 def sampleResponses(inputText):
     user_message  = str(inputText).lower()
-    how_resp = "gay" or "male" or 'female' or "lesbian" or "waifu" or "straight"
+    print(user_message)
 
     if user_message in ["hey", "hello", "hi" ]:
         return "Hey! How is it going?"
@@ -18,7 +18,7 @@ def sampleResponses(inputText):
         now = now.strftime("%d/%m%y, %H:%M:%S")
         return str(now)
 
-    if user_message in ["my location"]:
+    if user_message in ["Location", "location", "my location"]:
         return "My bed or my heart. As you wish. ^_~"
     
 
@@ -28,4 +28,4 @@ def sampleResponses(inputText):
     if user_message in [r"love you"]:
         return f"Love you too. Know that you are special and precious."
 
-    return("I don't understand you")
+    return("I don't understand you. Please use commands and messages as specified in /start ")

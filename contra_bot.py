@@ -212,10 +212,11 @@ disp.add_handler(tele.CommandHandler("start", start))
 disp.add_handler(tele.CommandHandler("roastme", roastme))
 disp.add_handler(tele.CommandHandler("flirt", flirt))
 disp.add_handler(tele.CommandHandler("help", help))
+disp.add_handler(tele.CommandHandler("meme", meme))
 disp.add_handler(tele.MessageHandler(tele.Filters.text, message_handler))
 # disp.add_handler(tele.CommandHandler('trivia', trivia))
 # disp.add_handler(tele.MessageHandler(tele.Filters.text, triviahandler))
-disp.add_handler(tele.CommandHandler("meme", meme))
+
 
 
 updater.start_polling()
