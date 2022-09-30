@@ -1,7 +1,8 @@
 import telegram.ext as tele
 import time
 from telegram import *
-#import Responses as resp
+# from aiogram import InlineKeyboardButton, InlineKeyboardMarkup
+import Responses as Resp
 import random
 import requests
 
@@ -14,11 +15,20 @@ TOKEN = "5739362149:AAGj26fJRtNlT5Ul8Q5Do28tbrUExt7b8oQ"
 def start(update,context):
     first_name = update.message.from_user["first_name"]
     update.message.reply_text('''
+    Commands:
    /help
    /roastme
    /flirt
    /meme
-   /trivia
+
+   Messages:
+   Greetings --> hey, hello, hi
+   Time
+   Location
+
+   Fun:
+   how gay / how lesbian / how straight
+   how male/ how female / how waifu
     ''')
     print(update.message)
 
@@ -60,7 +70,7 @@ def flirt(update, context):
                 Are you Coronavirus? Because i wouldn't mind spending two weeks in bed with you
                 I'm no organ donor but I'd be happy to give you my heart     '''
     lines = lines.split("\n")
-    pickup_line = lines[randrange(0,30)]
+    pickup_line = lines[random.randrange(0,30)]
     update.message.reply_text(pickup_line)
  
  
@@ -68,7 +78,7 @@ def flirt(update, context):
 def roastme(update, context):
     lines = ''' My hair straightener is hotter than you.
                 I have heels higher than your standards.
-                You have more faces than Mount Rushmore.
+                You have more faces than Mount Rushmore
                 I'm jealous of people who don't know you.
                 You're entitled to your incorrect opinion.
                 I'm visualizing duck tape over your mouth.
@@ -89,16 +99,8 @@ def roastme(update, context):
                 Some people should use a glue stick instead of chapstick.
                 It's scary to think people like you are allowed to vote.'''
     lines = lines.split("\n")
-    roast_line = lines[randrange(0,22)]
+    roast_line = lines[random.randrange(0,22)]
     update.message.reply_text(roast_line)
-
-
-# def gamble(update, context):
-#     # if update.message == "photo" or "sticker":
-#     update.message.reply_text("dice")
-#     print(update.message)
-#     # pic = 
-#     # update.message.reply_sticker()
 
 
 def meme(update, context):
@@ -107,41 +109,76 @@ def meme(update, context):
     update.message.reply_photo(url)
 
 
+# button1 = InlineKeyboardButton(text = "How Gay", callback_data ="howgay")
+# button2 = InlineKeyboardButton(text = "How Lesbian", callback_data ="howlesbian")
+# button3 = InlineKeyboardButton(text = "How Straight", callback_data ="howstraight")
+# button4 = InlineKeyboardButton(text = "How Male", callback_data ="howmale")
+# button5 = InlineKeyboardButton(text = "How Female", callback_data ="howfemale")
+# button6 = InlineKeyboardButton(text = "How Waifu", callback_data ="waifu")
 
-def trivia(update, context):
-    details = []
-    response = requests.get('https://the-trivia-api.com/api/questions').json()
-    # print(response)
-    for element in response:
-        question = element.get('question')
-        print(question)
-        right = element.get('correctAnswer')
-        print(right)
-        wrongs = element.get('incorrectAnswers')
-        print(wrongs)
-        options = []
-        print(options)
-        for wrong in wrongs:
-            print(wrong)
-            options.append(wrong)
-        options.append(right)
-        options.append(question)
-        print(options)
+# keyboard_inline = InlineKeyboardMarkup().add(button1,button2,button3).add(button4,button5,button6)
 
 
-        buttons = [[KeyboardButton(options.pop(options.index(random.choice(options))))],
-        [KeyboardButton(options.pop(options.index(random.choice(options))))],
-        [KeyboardButton(options.pop(options.index(random.choice(options))))],
-        [KeyboardButton(options.pop(options.index(random.choice(options))))]]  
+# @dp.message_handler(command = ["how"])
+# async def response_how(message: types.Message):
+#     await message.reply("%Rating: ", reply_markup = keyboard_inline)
 
-        context.bot.send_message(chat_id=update.effective_chat.id, text = question, reply_markup=ReplyKeyboardMarkup(buttons)) 
-        details.append(options)
-    return details
+# @dp.callback_query_handler(text = ["howgay", "howstraight","howlesbian","howmale","howfemale","waifu"])
+# async def random_percent(call:types.CallbackQuery):
+#     if call.data == "howgay":
+#         await call.message.answer("You are:"+ random.randint(1, 100) + "% Gay.")
+
+#     elif call.data == "howlesbian":
+#         await call.message.answer("You are:"+ random.randint(1, 100) + "% Lesbian.")
+
+#     elif call.data == "howstraight":
+#         await call.message.answer("You are:"+ random.randint(1, 100) + "% Straight.")
+
+#     elif call.data == "howmale":
+#         await call.message.answer("You are:"+ random.randint(1, 100) + "% Male.")
+
+#     elif call.data == "howfemale":
+#         await call.message.answer("You are:"+ random.randint(1, 100) + "% Female.")
+
+#     elif call.data == "waifu":
+#         await call.message.answer("You are:"+ random.randint(1, 100) + "% Waifu.")
+#     await call.answer()
 
 
-def triviahandler(update, context):
-    # points = 0
-    pass
+# def trivia(update, context):
+#     details = []
+#     response = requests.get('https://the-trivia-api.com/api/questions').json()
+#     # print(response)
+#     for element in response:
+#         question = element.get('question')
+#         print(question)
+#         right = element.get('correctAnswer')
+#         print(right)
+#         wrongs = element.get('incorrectAnswers')
+#         print(wrongs)
+#         options = []
+#         print(options)
+#         for wrong in wrongs:
+#             print(wrong)
+#             options.append(wrong)
+#         options.append(right)
+#         options.append(question)
+#         print(options)
+
+#         buttons = [[KeyboardButton(options.pop(options.index(random.choice(options))))],
+#         [KeyboardButton(options.pop(options.index(random.choice(options))))],
+#         [KeyboardButton(options.pop(options.index(random.choice(options))))],
+#         [KeyboardButton(options.pop(options.index(random.choice(options))))]]  
+
+#         context.bot.send_message(chat_id=update.effective_chat.id, one_time_keyboard = True, resize_keyboard = True , text = question, reply_markup=ReplyKeyboardMarkup(buttons)) 
+#         details.append(options)
+
+#     update.message.reply_text("Testing")
+
+
+# def triviahandler(update, context):
+#     # points = 0
+#     pass
     # for options in details:
     #     question = options.pop()
     #     print(question)
@@ -160,6 +197,12 @@ def triviahandler(update, context):
     #     print(points)
 
 
+def message_handler(update,context):
+    text = str(update.message.text).lower()
+    response = Resp.sampleResponses(text)
+    update.message.reply_text(response)
+
+
 updater = tele.Updater(TOKEN, use_context=True)
 disp = updater.dispatcher
 
@@ -169,9 +212,9 @@ disp.add_handler(tele.CommandHandler("start", start))
 disp.add_handler(tele.CommandHandler("roastme", roastme))
 disp.add_handler(tele.CommandHandler("flirt", flirt))
 disp.add_handler(tele.CommandHandler("help", help))
-# disp.add_handler(tele.MessageHandler(tele.Filters.text, gamble))
-disp.add_handler(tele.CommandHandler('trivia', trivia))
-disp.add_handler(tele.MessageHandler(tele.Filters.text, triviahandler))
+disp.add_handler(tele.MessageHandler(tele.Filters.text, message_handler))
+# disp.add_handler(tele.CommandHandler('trivia', trivia))
+# disp.add_handler(tele.MessageHandler(tele.Filters.text, triviahandler))
 disp.add_handler(tele.CommandHandler("meme", meme))
 
 
