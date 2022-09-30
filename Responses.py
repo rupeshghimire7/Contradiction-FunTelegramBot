@@ -6,6 +6,7 @@ import random
 def sampleResponses(inputText):
     user_message  = str(inputText).lower()
     print(user_message)
+    
 
     if user_message in ["hey", "hello", "hi" ]:
         return "Hey! How is it going?"
