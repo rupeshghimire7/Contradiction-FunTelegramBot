@@ -1,5 +1,5 @@
 import telegram.ext as tele
-import time
+# import time
 from telegram import *
 # from aiogram import InlineKeyboardButton, InlineKeyboardMarkup
 import Responses as Resp
@@ -7,10 +7,8 @@ import random
 import requests
 
 
-# with open('token.txt', 'r') as f:
-#     TOKEN = f.read()
-TOKEN = "5739362149:AAGj26fJRtNlT5Ul8Q5Do28tbrUExt7b8oQ"
-
+with open('.env', 'r') as f:
+    TOKEN = f.read()
 
 def start(update,context):
     first_name = update.message.from_user["first_name"]
