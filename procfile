@@ -1,1 +1,1 @@
-worker: python contra_bot.py
+web: python contra_bot.py
