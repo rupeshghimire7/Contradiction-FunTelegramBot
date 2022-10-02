@@ -1,4 +1,2 @@
-python-telegram-bot module
-random module
-requests moudle for api data
-newbot token, url from botfather
+python-telegram-bot
+requests
